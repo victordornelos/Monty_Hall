@@ -1,2 +1,2 @@
-# paradoxo_monty_hall
+# Paradoxo de Monty Hall
  Analisando o paradoxo de Monty  Hall usando Python
