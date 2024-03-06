@@ -1,12 +1,11 @@
 import random
 import pandas as pd
 
+import random
+
 def Monty_Hall():
-    
     recompensas = ["vazio","vazio","R$: 1.000.000,00"]
-
     random.shuffle(recompensas)
-
     opcoes = {1:recompensas[0], 2:recompensas[1], 3:recompensas[2]}
     escolha = set([random.randint(1,3)])
     premio = set([ i  for i in opcoes if opcoes[i] == "R$: 1.000.000,00"])
@@ -15,7 +14,6 @@ def Monty_Hall():
 
     if escolha == nova_opcao:
         trocou = 0
-
     else:
         trocou = 1
 
@@ -26,16 +24,19 @@ def Monty_Hall():
 
     return trocou, ganhou
 
-def ite_run(n = 10000):
+trocou, ganhou = Monty_Hall()
+
+def ite_run(n=10000):
     trocas = []
     ganhos = []
 
     for i in range(n):
-        
-        t,g = Monty_Hall()
+        t, g = Monty_Hall()
         trocas.append(t)
         ganhos.append(g)
     
-    return pd.DataFrame({'trocas':trocas,"ganhos": ganhos})
+    return pd.DataFrame({'trocas': trocas, 'ganhos': ganhos})
 
-df = ite_run( )
+df = ite_run()
+
+print(pd.crosstab(df['trocas'],df['ganhos']))
