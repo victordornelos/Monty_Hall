@@ -1,42 +1,51 @@
-import random
+# Bibliotecas
 import pandas as pd
-
 import random
 
+# Modelo de Monty_Hall
 def Monty_Hall():
+    
+    #Construindo o cenário do Jogo
     recompensas = ["vazio","vazio","R$: 1.000.000,00"]
-    random.shuffle(recompensas)
     opcoes = {1:recompensas[0], 2:recompensas[1], 3:recompensas[2]}
-    escolha = set([random.randint(1,3)])
     premio = set([ i  for i in opcoes if opcoes[i] == "R$: 1.000.000,00"])
-    abertura = set([random.choice(list(set(opcoes.keys()) - escolha - premio))])
-    nova_opcao = set([random.choice(list(set(opcoes.keys()) - abertura))])
 
+    #Construindo as ações da primeira escolha
+    random.shuffle(recompensas)
+    escolha = set([random.randint(1,3)])
+    abertura = set([random.choice(list(set(opcoes.keys()) - escolha - premio))])
+
+    #Construindo as ações da segunda escolha
+    nova_opcao = set([random.choice(list(set(opcoes.keys()) - abertura))])
     if escolha == nova_opcao:
-        trocou = 0
+        decisao = 'Manteve'
     else:
-        trocou = 1
+        decisao = 'Trocou'
 
     if nova_opcao == premio:
-        ganhou = 1
+        resultado = 'Ganhou'
     else:
-        ganhou = 0
+        resultado = 'Perdeu'
 
-    return trocou, ganhou
+    return decisao, resultado
 
-trocou, ganhou = Monty_Hall()
+#Resultado da partida
+decisao, resultado = Monty_Hall()
 
-def ite_run(n=10000):
-    trocas = []
-    ganhos = []
+#Criando um loop
+def Loop(n=10000):
+    decisao = []
+    resultado = []
 
     for i in range(n):
         t, g = Monty_Hall()
-        trocas.append(t)
-        ganhos.append(g)
+        decisao.append(t)
+        resultado.append(g)
     
-    return pd.DataFrame({'trocas': trocas, 'ganhos': ganhos})
+    return pd.DataFrame({'Decisão': decisao, 'Resultado': resultado})
 
-df = ite_run()
+#Analisando os resultados
+dados = Loop()
+payoff = pd.crosstab(dados['Decisão'],dados['Resultado'])
+print(payoff)
 
-print(pd.crosstab(df['trocas'],df['ganhos']))
