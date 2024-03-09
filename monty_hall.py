@@ -23,7 +23,7 @@ def Monty_Hall():
         decisao = 'Trocou'
 
     if nova_opcao == premio:
-        resultado = 'Ganhou'
+        resultado = 'Venceu'
     else:
         resultado = 'Perdeu'
 
@@ -44,8 +44,30 @@ def Loop(n=10000):
     
     return pd.DataFrame({'Decisão': decisao, 'Resultado': resultado})
 
-#Analisando os resultados
+#Coletando os resultados
 dados = Loop()
 payoff = pd.crosstab(dados['Decisão'],dados['Resultado'])
-print(payoff)
 
+# Analisando os resultados de manter
+vitorias_manteve = payoff.loc['Manteve', 'Venceu']
+derrotas_manteve = payoff.loc['Manteve', 'Perdeu']
+total_manteve = vitorias_manteve + derrotas_manteve
+porcentagem_vitorias_manteve = (vitorias_manteve / total_manteve) * 100
+porcentagem_derrotas_manteve = (derrotas_manteve / total_manteve) * 100
+novo_df = pd.DataFrame({
+    'Decisão': ['Manteve'],
+    'Porcentagem de Vitórias': [porcentagem_vitorias_manteve],
+    'Porcentagem de Derrotas': [porcentagem_derrotas_manteve]
+})
+
+# Analisando os resultados de trocar
+vitorias_trocou = payoff.loc['Trocou', 'Venceu']
+derrotas_trocou = payoff.loc['Trocou', 'Perdeu']
+total_trocou = vitorias_trocou + derrotas_trocou
+porcentagem_vitorias_trocou = (vitorias_trocou / total_trocou) * 100
+porcentagem_derrotas_trocou = (derrotas_trocou / total_trocou) * 100
+novo_df = pd.DataFrame({
+    'Decisão': ['Trocou'],
+    'Porcentagem de Vitórias': [porcentagem_vitorias_trocou],
+    'Porcentagem de Derrotas': [porcentagem_derrotas_trocou]
+})
