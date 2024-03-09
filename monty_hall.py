@@ -78,3 +78,14 @@ resultado_payoff = pd.DataFrame({
     'Porcentagem de Derrotas': [porcentagem_derrotas_manteve, porcentagem_derrotas_trocou]
 })
 
+
+
+
+
+
+
+
+
+
+
+
