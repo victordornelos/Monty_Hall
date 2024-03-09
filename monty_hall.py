@@ -71,3 +71,10 @@ novo_df = pd.DataFrame({
     'Porcentagem de Vitórias': [porcentagem_vitorias_trocou],
     'Porcentagem de Derrotas': [porcentagem_derrotas_trocou]
 })
+
+resultado_payoff = pd.DataFrame({
+    'Decisão': ['Manteve', 'Trocou'],
+    'Porcentagem de Vitórias': [porcentagem_vitorias_manteve, porcentagem_vitorias_trocou],
+    'Porcentagem de Derrotas': [porcentagem_derrotas_manteve, porcentagem_derrotas_trocou]
+})
+
