@@ -1,4 +1,4 @@
-# Bibliotecas
+# Bibliotecas para o jogo
 import pandas as pd
 import random
 
@@ -33,7 +33,7 @@ def Monty_Hall():
 decisao, resultado = Monty_Hall()
 
 #Criando um loop
-def Loop(n=10000):
+def Loop(n=100000):
     decisao = []
     resultado = []
 
@@ -78,10 +78,56 @@ resultado_payoff = pd.DataFrame({
     'Porcentagem de Derrotas': [porcentagem_derrotas_manteve, porcentagem_derrotas_trocou]
 })
 
+# Bibliotecas para os gráficos
+import seaborn as sns
+import matplotlib.pyplot as plt
+import mplcyberpunk #Opcional
+plt.style.use('cyberpunk')#Opcional
+# Definindo as cores para cada resultado 
+cores = ["#4B51FA", "#FA4BA3"]  # Cor para "Vitória" e "Derrota", respectivamente 
+#https://color.adobe.com/pt/create/color-wheel, pode escolher nesse site
 
+# Organizando os dados para o gráfico de manter
+fim_manter = ['Vitória','Derrota']
+porcentagem_manter = [porcentagem_vitorias_manteve, porcentagem_derrotas_manteve]
+dados_grafico_manteve = dict(zip(fim_manter, porcentagem_manter))
+fim_manter = list(dados_grafico_manteve.keys())
+porcentagem_manter = list(dados_grafico_manteve.values())
 
+# Configurando um gráfico de setores (pizza)
+sns.set_context("talk")
+plt.figure(figsize=(15, 15))
+plt.pie(porcentagem_manter, labels=fim_manter, autopct='%1.2f%%', startangle=0, colors=cores)
 
+# Adicionando uma legenda à direita
+legenda = plt.legend(title="Resultado", loc="center left", bbox_to_anchor=(1, 0.5), fontsize=14)
+for text, color in zip(legenda.get_texts(), cores):
+    text.set_color(color)
+plt.setp(legenda.get_title(), fontsize=16, color='White')
+plt.title('Comparação entre vitória e derrota no caso de manter', fontsize=24, fontweight='bold')
+plt.axis('equal')
+plt.show()
 
+# Gráfico de trocar a escolha
+
+# Organizando os dados para o gráfico
+fim_trocou = ['Vitória','Derrota']
+porcentagem_trocou = [porcentagem_vitorias_trocou, porcentagem_derrotas_trocou]
+dados_grafico_trocou = dict(zip(fim_trocou, porcentagem_trocou))
+fim_trocou= list(dados_grafico_trocou.keys())
+porcentagem_trocou = list(dados_grafico_trocou.values())
+
+# Configurando um gráfico de setores (pizza)
+sns.set_context("talk")
+plt.figure(figsize=(15, 15))
+plt.pie(porcentagem_trocou, labels=fim_trocou, autopct='%1.2f%%', startangle=0, colors=cores)
+legenda = plt.legend(title="Resultado:", loc="center left", bbox_to_anchor=(1, 0.5), fontsize=14)
+for text, color in zip(legenda.get_texts(), cores):
+    text.set_color(color)
+plt.setp(legenda.get_title(), fontsize=16, color='White')
+plt.title('Comparação entre vitória e derrota no caso de trocar', fontsize=24, fontweight='bold')
+plt.axis('equal')
+plt.show()
 
 
 
