@@ -83,9 +83,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import mplcyberpunk #Opcional
 plt.style.use('cyberpunk')#Opcional
+
 # Definindo as cores para cada resultado 
-cores = ["#4B51FA", "#FA4BA3"]  # Cor para "Vitória" e "Derrota", respectivamente 
-#https://color.adobe.com/pt/create/color-wheel, pode escolher nesse site
+cores = ["#4B51FA", "#FA4BA3"]  # Cor para Vitória e Derrota, respectivamente 
+#https://color.adobe.com/pt/create/color-wheel pode escolher as cores nesse site
+
+#Criando o gráfico de manter a escolha
 
 # Organizando os dados para o gráfico de manter
 fim_manter = ['Vitória','Derrota']
@@ -94,12 +97,10 @@ dados_grafico_manteve = dict(zip(fim_manter, porcentagem_manter))
 fim_manter = list(dados_grafico_manteve.keys())
 porcentagem_manter = list(dados_grafico_manteve.values())
 
-# Configurando um gráfico de setores (pizza)
+# Configurando um gráfico de setores (pizza) para decisão de manter
 sns.set_context("talk")
 plt.figure(figsize=(15, 15))
 plt.pie(porcentagem_manter, labels=fim_manter, autopct='%1.2f%%', startangle=0, colors=cores)
-
-# Adicionando uma legenda à direita
 legenda = plt.legend(title="Resultado", loc="center left", bbox_to_anchor=(1, 0.5), fontsize=14)
 for text, color in zip(legenda.get_texts(), cores):
     text.set_color(color)
@@ -117,7 +118,7 @@ dados_grafico_trocou = dict(zip(fim_trocou, porcentagem_trocou))
 fim_trocou= list(dados_grafico_trocou.keys())
 porcentagem_trocou = list(dados_grafico_trocou.values())
 
-# Configurando um gráfico de setores (pizza)
+# Configurando um gráfico de setores (pizza) para decisão de trocar
 sns.set_context("talk")
 plt.figure(figsize=(15, 15))
 plt.pie(porcentagem_trocou, labels=fim_trocou, autopct='%1.2f%%', startangle=0, colors=cores)
